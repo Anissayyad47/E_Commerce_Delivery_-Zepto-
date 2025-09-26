@@ -1,0 +1,27 @@
+# ==============================
+# Frontend (React + Vite)
+# ==============================
+frontend/node_modules/
+frontend/dist/
+frontend/.env
+frontend/.env.local
+frontend/.vite/
+
+# ==============================
+# Backend (Spring Boot + Maven)
+# ==============================
+java_backend/target/
+java_backend/*.log
+java_backend/*.iml
+java_backend/.env
+
+# IntelliJ / VSCode project files
+.idea/
+.vscode/
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Compiled classes
+*.class

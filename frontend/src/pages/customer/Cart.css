@@ -1,0 +1,133 @@
+.cart-page{
+    display: flex;
+    justify-content: center;
+}
+.cart-container{
+    width: 1300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.cart-items-container{
+    width: 700px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+.cart-items-container span{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+}
+.cart-items-container span img{
+    width: 50px;
+    margin: 10px;
+}
+.cart-itme{
+    display: flex;
+    align-items: center;
+    width: 95%;
+    justify-content: space-between;
+    padding: 10px;
+    margin-top:10px ;
+}
+.cart-itme img{
+    width: 100px;
+    border-radius: 12px;
+}
+.cart-itme-details{
+    width: 30%;
+}
+.cart-itme-details p{
+    margin: 5px;
+}
+.cart-itme-name{
+    font-weight: bold;
+}
+.cart-itme-weight{
+    color: rgb(116, 114, 114);
+}
+.cart-item-quentity{
+    border: 1px solid rgb(255, 7, 102);
+    border-radius: 15px;
+    background-color: rgb(253, 230, 234);
+    font-size: larger;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100px;
+}
+.cart-item-quentity button{
+    color: rgb(202, 14, 46);
+    font-size: 40px;
+    width: 30px;
+    background-color: rgb(253, 230, 234);
+    border: none;
+    margin-left: 5px;
+    margin-right: 5px;
+    cursor: pointer;
+}
+.cart-item-price{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 120px;
+}
+.original-price {
+    text-decoration: line-through;
+    color: #888;   /* gray color for original price */
+    margin-left: 8px;
+}
+
+.discounted-price {
+    color: #222222;  /* red color for discounted price */
+    font-weight: bold;
+    font-size: large;
+}
+
+.cart-item-remove{
+    padding: 15px;
+    border-radius: 10px;
+    background-color: rgb(253, 230, 234);
+    border: 1px solid rgb(255, 7, 102);
+    cursor: pointer;
+}
+
+/* Place Order */
+.cart-place-order{
+    margin-top: 50px;
+}
+.cart-address{
+    display: flex;
+
+}
+.cart-address img{
+    width: 60px;
+    height: 60px;
+}
+.cart-address div{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-left: 10px;
+}
+.cart-address  div h3{
+    margin: 0px;
+}
+.cart-address  div p{
+    margin: 0px;
+    color: rgb(102, 102, 102);
+}
+.cart-place-order button{
+    width: 100%;
+    padding: 15px;
+    font-size: larger;
+    border-radius: 10px;
+    margin-top: 20px;
+    background-color: rgb(202, 0, 94);
+    color: white;
+    border: none;
+    cursor: pointer;
+}
