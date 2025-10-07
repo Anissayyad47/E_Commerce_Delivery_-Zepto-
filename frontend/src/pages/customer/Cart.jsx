@@ -9,12 +9,13 @@ import axios from 'axios'
 
 
 export default function Cart() {
+    const backendUrl = import.meta.env.VITE_BACKEND_URL;
     const [qty, setQty]=useState(1);
     const [cartItems, setCartItems]=useState([]);
     const [items, setItems]=useState([]);
     useEffect(()=> {
         async function getCartItems(){
-            axios.get("http://localhost:8080/cart/getAllCart/5")
+            axios.get(`${backendUrl}/cart/getAllCart/5`)
             .then((res)=> {
                 console.log(res.data.data)
                 setItems(res.data.data.items)

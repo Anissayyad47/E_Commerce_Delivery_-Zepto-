@@ -10,12 +10,12 @@ import FooterAbove from './components/FooterAbove'
 import RolePopup from '../../components/RolePopup'
 import axios from 'axios'
 
-
 export default function Home() {
     const [products , setProducts]=useState([]);
+    const backendUrl = import.meta.env.VITE_BACKEND_URL;
     useEffect(()=> {
         function getProducts(){
-            axios.get("http://localhost:8080/products/getAllNewProducts")
+            axios.get(`${backendUrl}/products/getAllNewProducts`)
             .then((res)=> {
                 setProducts(res.data.data)
             })

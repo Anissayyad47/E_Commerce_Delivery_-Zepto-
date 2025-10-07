@@ -4,6 +4,7 @@ import { useState } from 'react'
 import axios from 'axios';
 
 export default function CustomerLogin() {
+    const backendUrl = import.meta.env.VITE_BACKEND_URL;
     const [isLogin, setIsLogin] = useState(true);
     const [user, setUser]=useState({
         username:"",
@@ -19,7 +20,7 @@ export default function CustomerLogin() {
 
     const handleLogin=async (e)=> {
         e.preventDefault();
-        axios.post("http://localhost:8080/auth/login",user)
+        axios.post(`${backendUrl}/auth/login`,user)
         .then((res)=> setMessage(res.data.message))
         .catch((res)=> {
             setMessage(res.response.data.message)

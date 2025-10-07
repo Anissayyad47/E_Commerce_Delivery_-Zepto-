@@ -18,6 +18,7 @@ import ProductTemplate from './components/ProductTemplate'
 const productId="68d505660697c1091d145d37";
 
 export default function ProductDetails() {
+    const backendUrl = import.meta.env.VITE_BACKEND_URL;
     const [image, setImage]=useState();
     const [product, setProduct]=useState();
     const [similarProduct , setSimilarProduct]=useState([]);
@@ -25,7 +26,7 @@ export default function ProductDetails() {
 
     useEffect(()=>{
         async function getProduct(){
-            axios.get(`http://localhost:8080/products/get/${productId}`)
+            axios.get(`${backendUrl}/products/get/${productId}`)
             .then((res)=> {
                 console.log("Data received : ",res.data)
                 setProduct(res.data.data)
@@ -39,14 +40,14 @@ export default function ProductDetails() {
     useEffect(()=> {
         async function getSimilarProduct(){
             if(product){
-                axios.get(`http://localhost:8080/products/get/similarProducts/${product.commonDetails.category}`)
+                axios.get(`${backendUrl}/products/get/similarProducts/${product.commonDetails.category}`)
                 .then((res)=> {
                     console.log("Similar Data received ************************* : ",res.data)
                     setSimilarProduct(res.data.data)
                 })
                 .catch((err)=> console.log("Failed to receive"))
 
-                axios.get(`http://localhost:8080/products/get/alsoLikeProducts/${product.commonDetails.subCategory}`)
+                axios.get(`${backendUrl}/products/get/alsoLikeProducts/${product.commonDetails.subCategory}`)
                 .then((res)=> {
                     console.log("You might also like *************************** : ",res.data)
                     setAlsoLikeProduct(res.data.data)
