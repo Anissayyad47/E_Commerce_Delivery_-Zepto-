@@ -1,14 +1,27 @@
-# Use an OpenJDK base image
-FROM openjdk:17-jdk-slim
+# Step 1: Use a Maven + OpenJDK image to build the project
+FROM maven:3.9.1-eclipse-temurin-17 AS build
 
-# Set a working directory
+# Set working directory inside container
 WORKDIR /app
 
-# Copy the Spring Boot jar into the container
-COPY target/java_backend-0.0.1-SNAPSHOT.jar app.jar
+# Copy pom.xml and src folder
+COPY pom.xml .
+COPY src ./src
 
-# Expose the port your app runs on
+# Build the Spring Boot JAR (skip tests for faster build)
+RUN mvn clean package -DskipTests
+
+# Step 2: Use a smaller OpenJDK image to run the app
+FROM openjdk:17-jdk-slim
+
+# Set working directory
+WORKDIR /app
+
+# Copy the JAR from the previous build stage
+COPY --from=build /app/target/java_backend-0.0.1-SNAPSHOT.jar app.jar
+
+# Expose the port your Spring Boot app listens on
 EXPOSE 8080
 
-# Run the jar file
-ENTRYPOINT ["java","-jar","app.jar"]
+# Run the Spring Boot app
+ENTRYPOINT ["java", "-jar", "app.jar"]
