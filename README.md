@@ -46,4 +46,12 @@ The platform allows users to browse products, add them to the cart, and place or
 
 ---
 
+<img width="1920" height="1080" alt="frontend and 7 more pages - Personal - Microsoft​ Edge 25-10-2025 16_25_11" src="https://github.com/user-attachments/assets/a5889b37-f8e6-4c77-8419-2159e58671c7" />
+<img width="1920" height="1080" alt="frontend and 7 more pages - Personal - Microsoft​ Edge 25-10-2025 16_25_01" src="https://github.com/user-attachments/assets/89cbbbd8-1b94-4efb-8b66-8179da75e34f" />
+<img width="1920" height="1080" alt="frontend and 7 more pages - Personal - Microsoft​ Edge 25-10-2025 16_28_47" src="https://github.com/user-attachments/assets/98aa82fb-c58d-406c-890c-e841073225f1" />
+<img width="1920" height="1080" alt="frontend and 7 more pages - Personal - Microsoft​ Edge 25-10-2025 16_26_20" src="https://github.com/user-attachments/assets/8341d0a0-af07-4cc2-a21b-6b9ce92ee086" />
+<img width="1920" height="1080" alt="frontend and 7 more pages - Personal - Microsoft​ Edge 25-10-2025 16_25_54" src="https://github.com/user-attachments/assets/47f59384-1487-4656-82ec-88e0c06f77b9" />
+<img width="1920" height="1080" alt="frontend and 7 more pages - Personal - Microsoft​ Edge 25-10-2025 16_25_43" src="https://github.com/user-attachments/assets/1314eee7-828d-4dcd-af89-1cec5a89472b" />
+<img width="1920" height="1080" alt="frontend and 7 more pages - Personal - Microsoft​ Edge 25-10-2025 16_25_34" src="https://github.com/user-attachments/assets/3a5aa35f-ebf9-4c62-9f83-1ae727b615e0" />
+<img width="1920" height="1080" alt="frontend and 7 more pages - Personal - Microsoft​ Edge 25-10-2025 16_25_29" src="https://github.com/user-attachments/assets/3df423d9-c227-4d46-be94-90ffc81cc730" />
 
