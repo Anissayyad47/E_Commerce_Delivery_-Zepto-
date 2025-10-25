@@ -13,22 +13,18 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin
 public class CartConroller {
 
-
     @Autowired
     CartService cartService;
-
 
     @GetMapping("/getAllCart/{userId}")
     public ResponseEntity<MyResponseEntity<?>> getAllCart(@PathVariable String userId) {
         return cartService.getAllCart(userId);
     }
 
-
     @PostMapping("/add")
     public ResponseEntity<MyResponseEntity<Cart>> addCart(@RequestBody Cart cart) {
         return cartService.addCart(cart);
     }
-
 
     @DeleteMapping("/remove/{userId}/{productId}")
     public ResponseEntity<MyResponseEntity<Cart>> removeItem(
@@ -37,6 +33,12 @@ public class CartConroller {
         return cartService.removeItemFromCart(userId, productId);
     }
 
+    @DeleteMapping("/remove/qty/{userId}/{productId}")
+    public ResponseEntity<MyResponseEntity<Cart>> removeItemQty(
+            @PathVariable String userId,
+            @PathVariable String productId) {
+        return cartService.removeItemQty(userId, productId);
+    }
 
     @PostMapping("/addItem/{userId}")
     public ResponseEntity<MyResponseEntity<Cart>> addItem(
@@ -44,6 +46,5 @@ public class CartConroller {
             @RequestBody CartItem cartItem) {
         return cartService.addItemToCart(userId, cartItem);
     }
-
 
 }

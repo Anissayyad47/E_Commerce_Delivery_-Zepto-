@@ -19,6 +19,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -100,6 +101,12 @@ public class CartService {
             existingCart.setCartTotal(total);
             existingCart.setUpdatedAt(Instant.now());
 
+            double totalActual = existingCart.getItems().stream()
+                    .mapToDouble(CartItem::getTotalActualPrice)
+                    .sum();
+            existingCart.setCartActualTotal(totalActual);
+            existingCart.setUpdatedAt(Instant.now());
+
             // Save updated cart
             Cart updatedCart = cartRepository.save(existingCart);
 
@@ -130,8 +137,11 @@ public class CartService {
                 for (CartItem item : cart.getItems()) {
                     if (item.getProductId().equals(newItem.getProductId())) {
                         // Item exists → increase quantity
-                        item.setQuantity(item.getQuantity() + newItem.getQuantity());
+//                        item.setQuantity(item.getQuantity() + newItem.getQuantity());
+//                        item.setTotal(item.getQuantity() * item.getDiscountedPrice());
+                        item.setQuantity(item.getQuantity() + 1);
                         item.setTotal(item.getQuantity() * item.getDiscountedPrice());
+                        item.setTotalActualPrice(item.getQuantity() * item.getPrice());
                         found = true;
                         break;
                     }
@@ -161,6 +171,12 @@ public class CartService {
             cart.setCartTotal(total);
             cart.setUpdatedAt(Instant.now());
 
+            double totalDiscounted = cart.getItems().stream()
+                    .mapToDouble(CartItem::getTotalActualPrice)
+                    .sum();
+            cart.setCartActualTotal(totalDiscounted);
+            cart.setUpdatedAt(Instant.now());
+
             // Save cart
             Cart savedCart = cartRepository.save(cart);
 
@@ -172,6 +188,69 @@ public class CartService {
             return ResponseEntity
                     .status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body(new MyResponseEntity<>(500, "Error adding item to cart, please try again", null));
+        }
+    }
+    public ResponseEntity<MyResponseEntity<Cart>> removeItemQty(String userId, String productId) {
+        try {
+            // Fetch existing cart
+            Optional<Cart> existingCartOpt = cartRepository.findByUserId(userId);
+
+            Cart cart;
+
+            if (existingCartOpt.isPresent()) {
+                cart = existingCartOpt.get();
+
+                boolean found = false;
+
+                // Check if item already exists in cart
+                Iterator<CartItem> iterator = cart.getItems().iterator();
+                while (iterator.hasNext()) {
+                    CartItem item = iterator.next();
+                    if (item.getProductId().equals(productId)) {
+                        item.setQuantity(item.getQuantity() - 1);
+                        item.setTotal(item.getQuantity() * item.getDiscountedPrice());
+                        item.setTotalActualPrice(item.getQuantity() * item.getPrice());
+
+                        if (item.getQuantity() == 0) {
+                            iterator.remove(); // removes the item safely from the list
+                        }
+                        break;
+                    }
+                }
+
+                // If item not found → add new
+
+            } else {
+                // No existing cart → create new cart
+                return ResponseEntity
+                        .status(HttpStatus.NOT_FOUND)
+                        .body(new MyResponseEntity<>(404, "Item not found in cart", null));
+            }
+
+            // Recalculate cart total
+            double total = cart.getItems().stream()
+                    .mapToDouble(CartItem::getTotal)
+                    .sum();
+            cart.setCartTotal(total);
+            cart.setUpdatedAt(Instant.now());
+
+            double totalDiscounted = cart.getItems().stream()
+                    .mapToDouble(CartItem::getTotalActualPrice)
+                    .sum();
+            cart.setCartActualTotal(totalDiscounted);
+            cart.setUpdatedAt(Instant.now());
+
+            // Save cart
+            Cart savedCart = cartRepository.save(cart);
+
+            return ResponseEntity
+                    .status(HttpStatus.CREATED)
+                    .body(new MyResponseEntity<>(200, "Item removed/updated in cart", savedCart));
+
+        } catch (Exception e) {
+            return ResponseEntity
+                    .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(new MyResponseEntity<>(500, "Error removing item to cart, please try again", null));
         }
     }
 
@@ -217,4 +296,6 @@ public class CartService {
                 .status(HttpStatus.OK)
                 .body(new MyResponseEntity<>(200, "Cart items sent", cartResponse));
     }
+
+
 }

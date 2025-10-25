@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/products")
@@ -45,5 +46,17 @@ public class ProductController {
         return productService.getAllProductsBySubCategory(subCategory);
     }
 
+//    @GetMapping("/search/{productName}")
+//    public ResponseEntity<MyResponseEntity<List<Product>>> getProdcutByName(@PathVariable String productName){
+//            return productService.getProdcutByName(productName);
+//    }
 
+//    @GetMapping("/search")
+//    public Map<String, List<Products>> searchProducts(@RequestParam String query) {
+//        return productService.searchProducts(query);
+//    }
+     @GetMapping("/search/{productName}")
+     public ResponseEntity<?> searchProducts(@PathVariable String productName){
+        return productService.searchProducts(productName);
+     }
 }

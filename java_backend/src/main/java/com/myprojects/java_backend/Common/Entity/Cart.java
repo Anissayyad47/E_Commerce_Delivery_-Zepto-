@@ -24,6 +24,7 @@ public class Cart {
     private String warehouseId; // from which warehouse items are added
 
     private double cartTotal;  // total amount (with discounts)
+    private double cartActualTotal;
     private List<CartItem> items;  // list of cart items
 
     private Instant createdAt;

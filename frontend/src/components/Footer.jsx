@@ -1,5 +1,10 @@
 import React from 'react'
 import './NavbarFooter.css'
+import { FaLinkedinIn } from "react-icons/fa";
+import { FaFacebookF } from "react-icons/fa";
+import { IoLogoInstagram } from "react-icons/io5";
+import { FaXTwitter } from "react-icons/fa6";
+import red_logo from '../assets/zepto_theme/logo.svg'
 
 
 export default function Footer() {
@@ -9,7 +14,7 @@ export default function Footer() {
             
             {/* Logo + Description */}
             <div className="footer-section">
-            <h2 className="footer-logo">Zepto Clone</h2>
+            <h2 className="footer-logo"><img src={red_logo}></img></h2>
             <p className="footer-desc">
                 Groceries delivered in 10 minutes! Fresh products from local warehouses to your doorstep.
             </p>
@@ -40,9 +45,10 @@ export default function Footer() {
             <div className="footer-section">
             <h3>Follow Us</h3>
             <div className="social-icons">
-                <a href="https://facebook.com" target="_blank" rel="noreferrer">🌐</a>
-                <a href="https://instagram.com" target="_blank" rel="noreferrer">📸</a>
-                <a href="https://twitter.com" target="_blank" rel="noreferrer">🐦</a>
+                <IoLogoInstagram></IoLogoInstagram>
+                <FaLinkedinIn></FaLinkedinIn>
+                <FaXTwitter></FaXTwitter>
+                <FaFacebookF></FaFacebookF>
             </div>
             </div>
         </div>

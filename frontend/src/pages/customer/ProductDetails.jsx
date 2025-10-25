@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { useParams } from "react-router-dom";
 import './ProductDetails.css'
 import { FaStar } from "react-icons/fa";
 import { BsLightningChargeFill } from "react-icons/bs";
@@ -14,15 +15,18 @@ import FooterAbove from './components/FooterAbove'
 import Footer from '../../components/Footer.jsx';
 import axios from 'axios';
 import ProductTemplate from './components/ProductTemplate'
+import Loader from '../../components/Loader.jsx';
+import ProductSkeleton from '../../components/ProductSkeleton .jsx';
 
 const productId="68d505660697c1091d145d37";
 
 export default function ProductDetails() {
     const backendUrl = import.meta.env.VITE_BACKEND_URL;
     const [image, setImage]=useState();
-    const [product, setProduct]=useState();
+    const [product, setProduct]=useState(null);
     const [similarProduct , setSimilarProduct]=useState([]);
     const [alsoLikeProduct, setAlsoLikeProduct]=useState([]);
+    const { slug, productId } = useParams();
 
     useEffect(()=>{
         async function getProduct(){
@@ -35,7 +39,7 @@ export default function ProductDetails() {
             .catch((err)=> console.log("Failed to receive"))
         }
         getProduct();
-    },[])
+    },[productId])
 
     useEffect(()=> {
         async function getSimilarProduct(){
@@ -69,6 +73,8 @@ export default function ProductDetails() {
     return (
         <>
         <Navbar></Navbar>
+        {product ? (
+        <>
         <div className='product-container'>
             <div className='product-container-in'>
                 <div className='product-container-left'>
@@ -98,7 +104,11 @@ export default function ProductDetails() {
                             <h3>{product.commonDetails.productName}</h3>
                             <p>Net Qty: {product.commonDetails.qty} <span className='product-ratings'><FaStar></FaStar> 4.7</span> (990.9k)</p>
                             <p className='product-get-in'><BsLightningChargeFill size={20}></BsLightningChargeFill>Get in 6 minutes</p>
-                            <p className='product-price'>₹{product.commonDetails.actualPrice}</p>
+                            <div className='product-price'>
+                                <div className='product-discoundPrice'>₹{product.commonDetails.actualPrice}</div>
+                                <div className='product-actualPrice'>₹{product.commonDetails.discountPrice}</div>
+                            </div>
+                            
                         </div>
                         <div className='product-features'>
                                 <div>
@@ -107,7 +117,7 @@ export default function ProductDetails() {
                                 </div>
                                 <div>
                                     <img src={fastDelivery} alt='Fast delivery'></img>
-                                    <p>No Return or Exchange</p>
+                                    <p>Fast Delivery</p>
                                 </div>
                         </div>
                     </div>
@@ -123,46 +133,22 @@ export default function ProductDetails() {
                                         <td>{value.toString()}</td>
                                     </tr>
                                 ))}
-                                {/* <tr>
-                                    <td >Brand</td>
-                                    <td>Amul</td>
-                                </tr>
-                                <tr>
-                                    <td>Product Type</td>
-                                    <td>Toned Milk</td>
-                                </tr>
-                                <tr>
-                                    <td>Key Features</td>
-                                    <td>Pasteurized and homogenized for safety, rich in essential nutrients and calcium, perfect for tea and coffee making, zero added preservatives</td>
-                                </tr>
-                                <tr>
-                                    <td>Material Type Free</td>
-                                    <td>Preservative-free</td>
-                                </tr>
-                                <tr>
-                                    <td>Packaging Type</td>
-                                    <td>Pouch</td>
-                                </tr>
-                                <tr>
-                                    <td>Ingredients</td>
-                                    <td>Milk Solids (3% Fat Minimum, 8.5% Snf Minimum)</td>
-                                </tr>
-                                <tr>
-                                    <td>Usage Recommendation</td>
-                                    <td>For Immediate Use</td>
-                                </tr>
-                                <tr>
-                                    <td>Dietary Preference</td>
-                                    <td>Veg</td>
-                                </tr>
-                                <tr>
-                                    <td>Unit</td>
-                                    <td>1 pack (500 ml)</td>
-                                </tr>
-                                <tr>
-                                    <td>Storage Instruction</td>
-                                    <td>Store continuously under refrigeration below 5?C until the 'Use By' date</td>
-                                </tr> */}
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div className='product-highlights'>
+                        <h2>Information</h2>
+                        <table>
+                            <tbody>
+                                {Object.entries(product.additionalInfo)
+                                .filter(([key, value])=> value !==null)
+                                .map(([key, value])=> (
+                                    <tr key={key}>
+                                        <td>{formatLabel(key)}:</td>
+                                        <td>{value.toString()}</td>
+                                    </tr>
+                                ))}
                             </tbody>
                         </table>
                     </div>
@@ -170,43 +156,43 @@ export default function ProductDetails() {
                 )}
             </div>
         </div>
-
         <div className='product-footer-container'>
             <div className='product-footer'>
                 <div className='product-row-1'>
                     <h2>Similar Products</h2>
                     <div className='product-row'>
-                        {product && product.commonDetails.productImages.length>0 && (
+                        {product && product.commonDetails.productImages.length>0 ? (
                             similarProduct
                                 // .filter(product => product.commonDetails.category === "fruits")
                                 .map((product, key) => (
                                 product && <ProductTemplate key={key} product={product} />
                                 ))
-                        )}
+                        ):(<ProductSkeleton></ProductSkeleton>)}
                     </div>
                 </div>
 
                 <div className='product-row-1'>
                     <h2>You might also like</h2>
                     <div className='product-row'>
-                        {product && product.commonDetails.productImages.length>0 && (
+                        {product && product.commonDetails.productImages.length>0 ? (
                             alsoLikeProduct
                                 // .filter(product => product.commonDetails.category === "vegetables")
                                 .map((product, key) => (
                                 product && <ProductTemplate key={key} product={product} />
                                 ))
-                        )}
+                        ):(<ProductSkeleton></ProductSkeleton>)}
                     </div>
                 </div>
             </div>
         </div>
-
         <div className='product-footer-container'>
             <div className='product-footer'>
                 <FooterAbove></FooterAbove>
             </div>
         </div>
         <Footer></Footer>
+        </>
+        ):(<Loader></Loader>)}
         </>
     )
 }

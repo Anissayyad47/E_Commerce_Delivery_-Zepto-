@@ -12,6 +12,7 @@ public class CartItemDTO {
     private double price;
     private double discountedPrice;
     private double total;
+    private double totalActualPrice;
     private Product product; // full product details
 
     public CartItemDTO(CartItem item, Product product) {
@@ -21,5 +22,6 @@ public class CartItemDTO {
         this.discountedPrice = item.getDiscountedPrice();
         this.total = item.getTotal();
         this.product = product;
+        this.totalActualPrice = item.getTotalActualPrice();
     }
 }

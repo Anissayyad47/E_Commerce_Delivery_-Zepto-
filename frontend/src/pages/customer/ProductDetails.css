@@ -108,7 +108,7 @@
     color: green;
     background: linear-gradient(to left, #d3ffd9, transparent);
 }
-.product-price{
+.product-price1{
     border-top: 1px solid black;
     border-bottom: 4px solid black;
     border-left: 1px solid black;
@@ -121,7 +121,46 @@
     background-color: red;
     color: white;
 }
+.product-price{
+    border: 2px solid;
+    border-bottom: 5px solid;
+    display: flex;
+    width: 100px;
+    border-radius: 10px;
+    overflow: hidden;
 
+}
+.product-discoundPrice{
+    background-color: red;
+    color: white;
+    display: inline;
+    font-size: larger;
+    font-weight: bold;
+    padding: 8px;
+    width: 50%;
+}
+
+.product-actualPrice{
+    background-color: rgb(251, 255, 0);
+    color: rgb(0, 0, 0);
+    display: inline;
+    font-size: larger;
+    font-weight: bold;
+    padding: 8px;
+    width: 50%;
+    position: relative;
+}
+.product-actualPrice::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 90%;
+  height: 2.5px; /* makes the cut thicker */
+  background-color: #ff0000; /* red or pinkish color */
+  transform: translateY(-50%) rotate(-30deg);
+  margin-left: 2px;
+}
 .product-features{
     border-top: 1px solid;
     display: flex;

@@ -10,10 +10,11 @@ import super_saver from '../assets/zepto_theme/super_saver.svg'
 import zepto_logo from '../assets/zepto_theme/zepto_logo.svg'
 import axios from 'axios';
 
-export default function Navbar({change}) {
+export default function Navbar1({change, handleSearch}) {
     const navigation=useNavigate();
     const [loginPopup, setShowPopup] = useState(false);
     const [cart, setCart]=useState();
+    const [searchText, setSearchText]=useState("");
     const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
         useEffect(()=> {
@@ -29,9 +30,21 @@ export default function Navbar({change}) {
         getCartItems();
     },[change])
 
+    const handleKeyDown = (event) => {
+        if (event.key === "Enter") {
+            handleSearch(searchText);
+        }
+
+    };
+
     const handleCart=()=> {
         navigation("/cart")
     }
+
+    const handleOnChange=(e)=> {
+        setSearchText(e.target.value)
+    }
+    
     return (
     <>
     <div className='navbar-container'>
@@ -43,8 +56,8 @@ export default function Navbar({change}) {
                 <p>Other-Mohmmadwadi Ghule Nagar</p>
             </div>
             <div className='navbar-search'>
-                <FiSearch size={20}></FiSearch>
-                <input type='text' placeholder='Search product' onClick={()=> navigation("/search")}></input>
+                <FiSearch size={20} onClick={handleKeyDown}></FiSearch>
+                <input type='text' placeholder='Search product' onChange={handleOnChange} onKeyDown={handleKeyDown}></input>
             </div>
             <div className='navbar-profile' onClick={()=> setShowPopup(true)}>
                 <CgProfile size={25}></CgProfile>

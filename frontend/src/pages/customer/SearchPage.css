@@ -1,0 +1,39 @@
+.search-container{
+    display: flex;
+    justify-content: center;
+}
+.search-container-in{
+    width: 1300px;
+    margin-top: 100px;
+}
+
+.recent-search{
+    font-size: larger;
+    font-weight: bold;
+    color: rgb(0, 0, 0);
+}
+.recent-search-container{
+    display: flex;
+
+}
+.recent-search-container p {
+    margin-right: 10px;
+    color: rgb(124, 123, 123);
+    border-radius: 8px;
+    background-color: rgb(216, 216, 216);
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+}
+
+.search-result-query{
+    margin-top: 10px;
+    margin-bottom: 10px;
+
+}
+
+.search-no-result-found{
+    display: flex;
+    justify-content: center;
+}

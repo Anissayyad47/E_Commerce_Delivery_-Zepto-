@@ -14,4 +14,5 @@ public class CartItem {
     private double price;       // snapshot of price at the time of adding
     private double discountedPrice; // snapshot of discounted price
     private double total;       // price * quantity
+    private double totalActualPrice;
 }
