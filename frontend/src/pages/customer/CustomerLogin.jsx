@@ -29,7 +29,6 @@ export default function CustomerLogin() {
 
     const handleRegister= async (e)=> {
         e.preventDefault();
-        console.log("register : ",user);
     }
     
     return (

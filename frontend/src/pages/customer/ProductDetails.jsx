@@ -5,10 +5,6 @@ import { FaStar } from "react-icons/fa";
 import { BsLightningChargeFill } from "react-icons/bs";
 import Navbar from '../../components/Navbar.jsx'
 import img1 from '../../assets/products/milk/image1.webp'
-import img2 from '../../assets/products/milk/image2.webp'
-import img3 from '../../assets/products/milk/image3.webp'
-import img4 from '../../assets/products/milk/image4.webp'
-import img5 from '../../assets/products/milk/image5.webp'
 import noReturns from '../../assets/no_return.svg';
 import fastDelivery from '../../assets/fastDelivery.svg'
 import FooterAbove from './components/FooterAbove'
@@ -18,7 +14,6 @@ import ProductTemplate from './components/ProductTemplate'
 import Loader from '../../components/Loader.jsx';
 import ProductSkeleton from '../../components/ProductSkeleton .jsx';
 
-const productId="68d505660697c1091d145d37";
 
 export default function ProductDetails() {
     const backendUrl = import.meta.env.VITE_BACKEND_URL;
@@ -32,7 +27,6 @@ export default function ProductDetails() {
         async function getProduct(){
             axios.get(`${backendUrl}/products/get/${productId}`)
             .then((res)=> {
-                console.log("Data received : ",res.data)
                 setProduct(res.data.data)
                 setImage(res.data.data.commonDetails.productImages[0])
             })
@@ -46,25 +40,24 @@ export default function ProductDetails() {
             if(product){
                 axios.get(`${backendUrl}/products/get/similarProducts/${product.commonDetails.category}`)
                 .then((res)=> {
-                    console.log("Similar Data received ************************* : ",res.data)
+                    // console.log("Similar Data received ************************* : ",res.data)
                     setSimilarProduct(res.data.data)
                 })
                 .catch((err)=> console.log("Failed to receive"))
 
                 axios.get(`${backendUrl}/products/get/alsoLikeProducts/${product.commonDetails.subCategory}`)
                 .then((res)=> {
-                    console.log("You might also like *************************** : ",res.data)
+                    // console.log("You might also like *************************** : ",res.data)
                     setAlsoLikeProduct(res.data.data)
                 })
                 .catch((err)=> console.log("Failed to receive"))
-                console.log('Sub category : ',product.commonDetails.category );
-                console.log('Sub category : ',product.commonDetails.subCategory );
+                // console.log('Sub category : ',product.commonDetails.category );
+                // console.log('Sub category : ',product.commonDetails.subCategory );
                 
             }
         }
         getSimilarProduct();
     },[product])
-    let columImg = [img1,img2,img3,img4,img5];
     
     const formatLabel = (key) => {
     const result = key.replace(/([A-Z])/g, ' $1');

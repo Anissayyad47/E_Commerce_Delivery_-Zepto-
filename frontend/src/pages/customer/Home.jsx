@@ -13,6 +13,7 @@ import LoadProducts from '../../components/LoadProducts'
 import ThreeDotLoader from '../../components/ThreeDotLoader'
 import Loader from '../../components/Loader'
 import DevelopmentNotice from '../../components/DevelopmentNotice'
+import ResponsiveWarning from '../../components/ResponsiveWarning'
 
 export default function Home() {
     const [products , setProducts]=useState([]);
@@ -30,10 +31,10 @@ export default function Home() {
         getProducts();
     },[])
 
-    console.log(products);
     return (
         <>
         <DevelopmentNotice></DevelopmentNotice>
+        <ResponsiveWarning></ResponsiveWarning>
         
         {products ? (
         <>

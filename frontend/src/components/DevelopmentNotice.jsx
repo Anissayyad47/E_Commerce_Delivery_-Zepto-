@@ -12,6 +12,20 @@ const DevelopmentNotice = () => {
     }
   }, []);
 
+  // Disable scrolling when modal is open
+  useEffect(() => {
+    if (show) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+
+    // Clean up on unmount
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, [show]);
+
   if (!show) return null;
 
   return (
@@ -34,10 +48,9 @@ const DevelopmentNotice = () => {
           <h3>⚙️ Technical Note</h3>
           <p>
             The backend server for this project is hosted on{" "}
-            <strong>Render</strong>.
-            If you’re visiting after a long time, the server might be sleeping.  
-            It can take up to <strong>3–5 minutes</strong> to wake up and respond
-            to new requests. Please wait a bit if data loads slowly ⏳
+            <strong>Render</strong>. If you’re visiting after a long time, the
+            server might be sleeping. It can take up to <strong>3–5 minutes</strong> 
+            to wake up and respond to new requests. Please wait a bit if data loads slowly ⏳
           </p>
         </div>
 

@@ -56,8 +56,8 @@ export default function ProductTemplate({product,setChange,setLoading}) {
             </div>
             <div className='product-details'>
                 <p className='product-save'>SAVE ₹{product.commonDetails.actualPrice-product.commonDetails.discountPrice}</p>
-                <span class="discounted-price">₹ {product.commonDetails.discountPrice} </span>
-                <span class="original-price">₹ {product.commonDetails.actualPrice}</span>
+                <span className="discounted-price">₹ {product.commonDetails.discountPrice} </span>
+                <span className="original-price">₹ {product.commonDetails.actualPrice}</span>
                 <p className='product-quentity'>{product.commonDetails.qty}</p>
                 <p className='product-name'>{product.commonDetails.productName}</p>
                 <div className='product-delivery-time'>

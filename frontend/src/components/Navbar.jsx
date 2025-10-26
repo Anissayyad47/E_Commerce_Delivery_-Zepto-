@@ -21,7 +21,6 @@ export default function Navbar({change}) {
             axios.get(`${backendUrl}/cart/getAllCart/5`)
             .then((res)=> {
                 setCart(res.data.data)
-                console.log(res.data.data);
                 
             })
             .catch((err)=> console.log("failed to get itesm "))
