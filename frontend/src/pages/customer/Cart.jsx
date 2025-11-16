@@ -66,7 +66,7 @@ export default function Cart() {
     }
 
     const makePayment = async () => {
-    const res = await fetch("http://localhost:8080/payment/create-order", {
+    const res = await fetch(`${backendUrl}/payment/create-order`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ amount: cartItems.cartTotal }), // Rs 500
@@ -81,7 +81,7 @@ export default function Cart() {
         name: "My Ecommerce Store",
         order_id: order.id,
         handler: async function (response) {
-        const verifyRes = await fetch("http://localhost:8080/payment/verify", {
+        const verifyRes = await fetch(`${backendUrl}/payment/verify`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(response),
