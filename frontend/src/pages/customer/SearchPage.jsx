@@ -55,13 +55,13 @@ export default function SearchPage() {
         <div className="search-container">
             <div className="search-container-in">
                 <div className="search-recent-search">
-                    <p className='recent-search'>Recent Search</p>
+                    {/* <p className='recent-search'>Recent Search</p>
                     <div className='recent-search-container'>
                         <p>Bread</p>
                         <p>Bread</p>
                         <p>Bread</p>
                         <p>Bread</p>
-                    </div>
+                    </div> */}
                     <p className='search-result-query'>Showing results for "{text}"</p>
                 </div>
                 {/* <div className="div">
@@ -70,9 +70,9 @@ export default function SearchPage() {
                 <div className="search-result">
                 {products &&  (
                     <>
-                    <div className='product-row-1'>
+                    <div className='product-row-11'>
                                         {/* <h2 className='product-row-heading'>Similar Products</h2> */}
-                                            <div className='product-row'>
+                                            <div className='product-row1'>
                                                 {products.matchingProducts && (
                                                     products.matchingProducts
                                                         // .filter(product => product.commonDetails.category === "vegetables") // filter by category
@@ -82,9 +82,9 @@ export default function SearchPage() {
                                                 )}
                                             </div>
                     </div>
-                    <div className='product-row-1'>
+                    <div className='product-row-11'>
                                         <h2 className='product-row-heading'>Similar Products</h2>
-                                            <div className='product-row'>
+                                            <div className='product-row1'>
                                                 {products.categoryProducts && (
                                                     products.categoryProducts
                                                         // .filter(product => product.commonDetails.category === "vegetables") // filter by category
@@ -94,9 +94,9 @@ export default function SearchPage() {
                                                 )}
                                             </div>
                     </div>
-                    <div className='product-row-1'>
+                    <div className='product-row-11'>
                                         <h2 className='product-row-heading'>You Might also like</h2>
-                                            <div className='product-row'>
+                                            <div className='product-row1'>
                                                 {products.subCategoryProducts && (
                                                     products.subCategoryProducts
                                                         // .filter(product => product.commonDetails.category === "vegetables") // filter by category
@@ -150,3 +150,4 @@ export default function SearchPage() {
         </>
     )
 }
+

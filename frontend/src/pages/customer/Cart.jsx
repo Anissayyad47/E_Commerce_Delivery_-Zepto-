@@ -64,6 +64,38 @@ export default function Cart() {
         .then((res)=> setChange(prev=> !prev))
         .catch((res)=> alert("failed to remove item from cart"))
     }
+
+    const makePayment = async () => {
+    const res = await fetch("http://localhost:8080/payment/create-order", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ amount: cartItems.cartTotal }), // Rs 500
+    });
+
+    const order = await res.json();
+
+    const options = {
+        key: "rzp_test_Rg2Xl4W3DJ9Vzd",
+        amount: order.amount,
+        currency: "INR",
+        name: "My Ecommerce Store",
+        order_id: order.id,
+        handler: async function (response) {
+        const verifyRes = await fetch("http://localhost:8080/payment/verify", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(response),
+        });
+        const result = await verifyRes.text();
+        alert(result);
+        },
+        theme: { color: "#3399cc" },
+    };
+
+    const rzp = new window.Razorpay(options);
+    rzp.open();
+    };
+
     return (
         <>
         {cartItems ? (
@@ -101,7 +133,7 @@ export default function Cart() {
                                         <p>sayyad nagar lane no.23, Hadapsar, Sayyad Nagar, Pune</p>
                                     </div>
                                 </div>
-                                <button>Click to Pay Rs {cartItems.cartTotal}</button>
+                                <button onClick={makePayment}>Click to Pay Rs {cartItems.cartTotal}</button>
                             </div>
                             <FooterAbove></FooterAbove>
                         </div>

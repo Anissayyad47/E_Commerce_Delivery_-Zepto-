@@ -107,7 +107,7 @@ public class ProductService {
                 .toList();
 
         List<Product> subCategoryProducts = newProductRepo.findAll().stream()
-                .filter(p -> p.getCommonDetails().getSubCategory().equalsIgnoreCase(subCategory))
+                .filter(p -> p.getCommonDetails().getCategory().equalsIgnoreCase(subCategory))
                 .toList();
 
         // Step 5: Return clean structured response
@@ -163,5 +163,10 @@ public class ProductService {
                     .status(HttpStatus.BAD_REQUEST)
                     .body(new MyResponseEntity<>(500,"Server error : failed to get similar products",null));
         }
+    }
+
+//    Testing things
+    public List<Product> testProductsBySubCategory(String subCategory){
+        return newProductRepo.findByCommonDetailsSubCategory(subCategory);
     }
 }

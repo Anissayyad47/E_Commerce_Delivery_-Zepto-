@@ -11,19 +11,26 @@
     align-items: center;
     margin-top: 50px;
 }
-.product-row-1{
-    width: 98%;
+
+/*  Product rows +++++++++++++++++++++++++++++++++++ */
+.product-row-11{
+    width: 100%;
 }
 .product-row-heading{
     margin-bottom: 20px;
     margin-top: 30px;
 }
-.product-row{
+.product-row1{
     width: 100%;
-    display: flex;
+    /* display: flex;
     justify-content: space-between;
     align-items: center;
-    overflow: scroll;
+    overflow: scroll; */
+    display: grid;
+    grid-template-columns: repeat(6, 1fr); 
+    gap: 10px;
+    justify-items: center;
+    margin-top: 20px;
 }
 /* All categories */
 .home-all-categories{

@@ -13,6 +13,7 @@ import axios from 'axios';
 import ProductTemplate from './components/ProductTemplate'
 import Loader from '../../components/Loader.jsx';
 import ProductSkeleton from '../../components/ProductSkeleton .jsx';
+import ThreeDotLoader from '../../components/ThreeDotLoader.jsx';
 
 
 export default function ProductDetails() {
@@ -21,6 +22,8 @@ export default function ProductDetails() {
     const [product, setProduct]=useState(null);
     const [similarProduct , setSimilarProduct]=useState([]);
     const [alsoLikeProduct, setAlsoLikeProduct]=useState([]);
+    const [change, setChange]=useState(false);
+    const [loading, setLoading]=useState(false);
     const { slug, productId } = useParams();
 
     useEffect(()=>{
@@ -45,7 +48,7 @@ export default function ProductDetails() {
                 })
                 .catch((err)=> console.log("Failed to receive"))
 
-                axios.get(`${backendUrl}/products/get/alsoLikeProducts/${product.commonDetails.subCategory}`)
+                axios.get(`${backendUrl}/products/get/similarProducts/${product.commonDetails.subCategory}`)
                 .then((res)=> {
                     // console.log("You might also like *************************** : ",res.data)
                     setAlsoLikeProduct(res.data.data)
@@ -63,9 +66,29 @@ export default function ProductDetails() {
     const result = key.replace(/([A-Z])/g, ' $1');
     return result.charAt(0).toUpperCase() + result.slice(1);
     };
+
+    const handleAdd= async (e)=> {
+        e.stopPropagation();
+        // setCount(count+1);
+        const item={
+            "productId":product.id,
+            "quantity":1,
+            "price":product.commonDetails.actualPrice,
+            "discountedPrice":product.commonDetails.discountPrice,
+            "total":product.commonDetails.discountPrice,
+            "totalActualPrice": product.commonDetails.actualPrice
+        }
+        setLoading(true);
+        axios.post(`${backendUrl}/cart/addItem/${5}`,item)
+        .then((res)=> {
+            setLoading(false)
+            setChange(prev => !prev)
+        })
+        .catch((res)=> alert("failed to add item"))
+    }
     return (
         <>
-        <Navbar></Navbar>
+        <Navbar change={change}></Navbar>
         {product ? (
         <>
         <div className='product-container'>
@@ -86,7 +109,7 @@ export default function ProductDetails() {
                                 {/* <button className='product-left'>left</button>
                                 <button className='product-right'>right</button> */}
                             </div>
-                            <button className='product-add-to-cart'>Add To Cart</button>
+                            <button className='product-add-to-cart' onClick={handleAdd}>Add To Cart</button>
                         </div>
                     </div>
                 </div>
@@ -151,27 +174,27 @@ export default function ProductDetails() {
         </div>
         <div className='product-footer-container'>
             <div className='product-footer'>
-                <div className='product-row-1'>
+                <div className='product-row-11'>
                     <h2>Similar Products</h2>
-                    <div className='product-row'>
+                    <div className='product-row1'>
                         {product && product.commonDetails.productImages.length>0 ? (
                             similarProduct
                                 // .filter(product => product.commonDetails.category === "fruits")
                                 .map((product, key) => (
-                                product && <ProductTemplate key={key} product={product} />
+                                product && <ProductTemplate key={key} product={product} setChange={setChange} setLoading={setLoading}/>
                                 ))
                         ):(<ProductSkeleton></ProductSkeleton>)}
                     </div>
                 </div>
 
-                <div className='product-row-1'>
+                <div className='product-row-11'>
                     <h2>You might also like</h2>
-                    <div className='product-row'>
+                    <div className='product-row1'>
                         {product && product.commonDetails.productImages.length>0 ? (
                             alsoLikeProduct
                                 // .filter(product => product.commonDetails.category === "vegetables")
                                 .map((product, key) => (
-                                product && <ProductTemplate key={key} product={product} />
+                                product && <ProductTemplate key={key} product={product} setChange={setChange} setLoading={setLoading}/>
                                 ))
                         ):(<ProductSkeleton></ProductSkeleton>)}
                     </div>
@@ -183,6 +206,7 @@ export default function ProductDetails() {
                 <FooterAbove></FooterAbove>
             </div>
         </div>
+        {loading && (<ThreeDotLoader></ThreeDotLoader>)}
         <Footer></Footer>
         </>
         ):(<Loader></Loader>)}

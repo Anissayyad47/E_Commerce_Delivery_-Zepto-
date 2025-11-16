@@ -13,11 +13,11 @@ public class WebConfig {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**") // all endpoints
-                        .allowedOrigins("https://e-commerce-delivery-zepto.vercel.app") // your frontend origin
+                        .allowedOrigins("https://e-commerce-delivery-zepto.vercel.app","http://localhost:5173/") // your frontend origin
 //                        .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                         .allowedHeaders("*")
                         .allowCredentials(true);
             }
         };
-    }
+    }//
 }

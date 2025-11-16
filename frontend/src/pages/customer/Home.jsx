@@ -47,9 +47,9 @@ export default function Home() {
                             </div>
                             <AvailableCategory></AvailableCategory>
                             {products.length>0 ? (<>
-                                <div className='product-row-1'>
+                                <div className='product-row-11'>
                                     <h2 className='product-row-heading'>Vegetables</h2>
-                                        <div className='product-row'>
+                                        <div className='product-row1'>
                                             {products.length>0 && (
                                                 products
                                                     .filter(product => product.commonDetails.category === "vegetables") // filter by category
@@ -59,9 +59,9 @@ export default function Home() {
                                             )}
                                         </div>
                                 </div>
-                                <div className='product-row-1'>
+                                <div className='product-row-11'>
                                     <h2 className='product-row-heading'>Fruits</h2>
-                                    <div className='product-row'>
+                                    <div className='product-row1'>
                                         {products.length>0 && (
                                             products
                                                 .filter(product => product.commonDetails.category === "fruits") // filter by category
